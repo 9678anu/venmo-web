@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Venmo Support</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        .venmo-gradient {
+            background: linear-gradient(135deg, #00C4FF 0%, #0088CC 100%);
+        }
+        
+        .sidebar {
+            scrollbar-width: thin;
+            scrollbar-color: #0088CC #E0F7FF;
+        }
+        
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .sidebar::-webkit-scrollbar-track {
+            background: #E0F7FF;
+            border-radius: 10px;
+        }
+        
+        .sidebar::-webkit-scrollbar-thumb {
+            background-color: #0088CC;
+            border-radius: 10px;
+        }
+        
+        .contact-btn {
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 196, 255, 0.3);
+        }
+        
+        .contact-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 196, 255, 0.4);
+        }
+        
+        .content-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        
+        .content-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid #00C4FF;
+        }
+        
+        .sidebar-item.active {
+            background-color: #E0F7FF;
+            color: #006699;
+            font-weight: 500;
+        }
+        
+        .call-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            z-index: 1000;
+            animation: ring 2s infinite;
+        }
+        
+        @keyframes ring {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 196, 255, 0.7); }
+            50% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(0, 196, 255, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 196, 255, 0); }
+        }
+        
+        .call-button:hover {
+            animation: none;
+            transform: scale(1.1);
+        }
+        
+        .venmo-logo {
+            max-width: 40px;
+            margin-right: 12px;
+        }
+    </style>
+</head>
+<body>
+    <header class="venmo-gradient text-white py-6 shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-3xl font-bold flex items-center">
+                        <img src="https://cdn.iconscout.com/icon/free/png-256/free-venmo-logo-icon-download-in-svg-png-gif-file-formats--brand-company-business-brands-pack-logos-icons-2284853.png?f=webp" alt="Venmo Logo" class="venmo-logo">
+                        Venmo Support
+                    </h1>
+                    <p class="text-lg mt-1 opacity-90">24/7 assistance for all your payment needs</p>
+                </div>
+                <div class="hidden md:block">
+                    <a href="tel:+1-844-610-9851" class="bg-white text-[#0088CC] px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition contact-btn">
+                        <i class="fas fa-headset mr-2"></i> Live Chat
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Sidebar -->
+            <div class="lg:w-1/4">
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                    <div class="bg-[#00C4FF] text-white px-6 py-4">
+                        <h3 class="font-bold text-lg flex items-center">
+                            <i class="fas fa-list-alt mr-2"></i> Support Topics
+                        </h3>
+                    </div>
+                    <div class="p-4">
+                        <div class="relative mb-4">
+                            <input type="text" id="search-bar" placeholder="Search help..." class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00C4FF] focus:border-transparent">
+                            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                        </div>
+                        
+                        <div class="space-y-1 max-h-[70vh] overflow-y-auto sidebar" id="sidebar">
+                            <div class="sidebar-item px-4 py-3 rounded-lg font-medium active" data-content="default">
+                                <i class="fas fa-question-circle mr-3"></i> General Support
+                            </div>
+                            
+                            <div class="px-4 py-2 mt-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">By Region</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="australia"><span class="mr-3">🌏</span> Australia</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="usa"><span class="mr-3">🇺🇸</span> USA</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="canada"><span class="mr-3">🍁</span> Canada</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="uk"><span class="mr-3">🇬🇧</span> UK</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="india"><span class="mr-3">🇮🇳</span> India</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="brazil"><span class="mr-3">🇧🇷</span> Brazil</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="japan"><span class="mr-3">🇯🇵</span> Japan</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="germany"><span class="mr-3">🇩🇪</span> Germany</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="france"><span class="mr-3">🇫🇷</span> France</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="mexico"><span class="mr-3">🇲🇽</span> Mexico</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="china"><span class="mr-3">🇨🇳</span> China</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="russia"><span class="mr-3">🇷🇺</span> Russia</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="south_africa"><span class="mr-3">🇿🇦</span> South Africa</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="italy"><span class="mr-3">🇮🇹</span> Italy</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="spain"><span class="mr-3">🇪🇸</span> Spain</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="south_korea"><span class="mr-3">🇰🇷</span> South Korea</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="nigeria"><span class="mr-3">🇳🇬</span> Nigeria</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="argentina"><span class="mr-3">🇦🇷</span> Argentina</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="egypt"><span class="mr-3">🇪🇬</span> Egypt</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="singapore"><span class="mr-3">🇸🇬</span> Singapore</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="new_zealand"><span class="mr-3">🇳🇿</span> New Zealand</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="sweden"><span class="mr-3">🇸🇪</span> Sweden</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="netherlands"><span class="mr-3">🇳🇱</span> Netherlands</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="turkey"><span class="mr-3">🇹🇷</span> Turkey</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="uae"><span class="mr-3">🇦🇪</span> UAE</div>
+                            
+                            <div class="px-4 py-2 mt-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Popular Topics</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="payments"><i class="fas fa-paper-plane mr-3 text-[#00C4FF]"></i> Sending Payments</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="security"><i class="fas fa-shield-alt mr-3 text-[#00C4FF]"></i> Account Security</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="business"><i class="fas fa-store mr-3 text-[#00C4FF]"></i> Business Profiles</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="troubleshooting"><i class="fas fa-exclamation-triangle mr-3 text-[#00C4FF]"></i> Troubleshooting</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="refunds"><i class="fas fa-exchange-alt mr-3 text-[#00C4FF]"></i> Refunds & Disputes</div>
+                            
+                            <div class="px-4 py-2 mt-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Other Topics</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="payment_methods"><i class="fas fa-credit-card mr-3 text-gray-400"></i> Payment Methods</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="account_setup"><i class="fas fa-user-plus mr-3 text-gray-400"></i> Account Setup</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="login_issues"><i class="fas fa-lock mr-3 text-gray-400"></i> Login Issues</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="notifications"><i class="fas fa-bell mr-3 text-gray-400"></i> Notifications</div>
+                            <div class="sidebar-item px-4 py-3 hover:bg-gray-50 rounded-lg transition" data-content="settings"><i class="fas fa-cog mr-3 text-gray-400"></i> Settings</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-6 bg-white rounded-xl shadow-sm overflow-hidden">
+                    <div class="bg-[#00C4FF] text-white px-6 py-4">
+                        <h3 class="font-bold text-lg flex items-center">
+                            <i class="fas fa-headset mr-2"></i> Contact Options
+                        </h3>
+                    </div>
+                    <div class="p-6">
+                        <div class="space-y-4">
+                            <a href="tel:+1-844-610-9851" class="flex items-center px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition">
+                                <div class="bg-[#00C4FF] text-white p-2 rounded-full mr-3">
+                                    <i class="fas fa-comments"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Live Chat</h4>
+                                    <p class="text-sm text-gray-500">Available 24/7</p>
+                                </div>
+                            </a>
+                            <a href="#" class="flex items-center px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition">
+                                <div class="bg-[#00C4FF] text-white p-2 rounded-full mr-3">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Email Us</h4>
+                                    <p class="text-sm text-gray-500">Response within 24 hours</p>
+                                </div>
+                            </a>
+                            <a href="tel:+1-844-610-9851" class="flex items-center px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition">
+                                <div class="bg-[#00C4FF] text-white p-2 rounded-full mr-3">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Call Support</h4>
+                                    <p class="text-sm text-gray-500">Mon-Fri, 8AM-8PM EST</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="lg:w-3/4" id="main-content">
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <i class="fas fa-clock mr-3"></i> Round-the-Clock Assistance
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Whether you're making a payment, managing your balance, or facing an unexpected issue, Venmo's support resources are available 24/7. We're committed to making your digital payment experience smooth, secure, and stress-free—anytime you need us.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="content-card bg-white p-6 rounded-xl shadow-sm">
+                        <div class="text-[#00C4FF] text-3xl mb-4">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Guided Help for New Users</h3>
+                        <p class="text-gray-600 mb-4">New to Venmo? No problem. Our Help Center is built for clarity—with step-by-step tutorials, how-to articles, and instant answers to get you started and confident in just a few clicks.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center bg-white text-[#0088CC] px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                    
+                    <div class="content-card bg-white p-6 rounded-xl shadow-sm">
+                        <div class="text-[#00C4FF] text-3xl mb-4">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Safe Payments Built In</h3>
+                        <p class="text-gray-600 mb-4">Your peace of mind is our priority. With every transfer or purchase, Venmo encrypts your data and keeps your financial information protected behind multiple layers of security.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center bg-white text-[#0088CC] px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                    
+                    <div class="content-card bg-white p-6 rounded-xl shadow-sm">
+                        <div class="text-[#00C4FF] text-3xl mb-4">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Resolve Payment Issues Quickly</h3>
+                        <p class="text-gray-600 mb-4">Disputed charges? Sent money by mistake? Venmo provides intuitive tools for canceling payments, reviewing transaction history, and filing disputes.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center bg-white text-[#0088CC] px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                    
+                    <div class="content-card bg-white p-6 rounded-xl shadow-sm">
+                        <div class="text-[#00C4FF] text-3xl mb-4">
+                            <i class="fas fa-shield-virus"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Real-Time Security Monitoring</h3>
+                        <p class="text-gray-600 mb-4">Your account is protected by intelligent fraud detection systems that work around the clock. From detecting unfamiliar logins to spotting suspicious transactions.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center bg-white text-[#0088CC] px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="mt-8 bg-white rounded-xl shadow-sm overflow-hidden">
+                    <div class="bg-gray-50 px-6 py-4 border-b">
+                        <h3 class="font-bold text-lg text-gray-800">
+                            <i class="fas fa-exclamation-circle mr-2 text-orange-500"></i> Important Note
+                        </h3>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-4">This content is independently written for informational purposes to support users navigating Venmo-related services. We are not affiliated with Venmo or PayPal Inc., nor do we claim any official representation.</p>
+                        <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                            <li>Always access support directly through the official Venmo app or website.</li>
+                            <li>Never share sensitive account information with unauthorized third parties.</li>
+                            <li>Use trusted devices and enable security alerts to monitor account activity.</li>
+                            <li>This content aims to encourage safe usage and user education.</li>
+                            <li>Payment decisions should be made carefully and responsibly.</li>
+                            <li>Stay informed, stay secure, and always verify official sources for assistance.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ringing Call Button -->
+    <a href="tel:+1-844-610-9851" class="call-button venmo-gradient">
+        <i class="fas fa-phone"></i>
+    </a>
+
+    <footer class="bg-gray-900 text-white py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="text-lg font-bold mb-4 flex items-center">
+                        <i class="fas fa-comment-dollar mr-2"></i> Venmo Support
+                    </h4>
+                    <p class="text-gray-400">24/7 assistance for all your Venmo payment needs and account questions.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Help Center</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Community Forum</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Status Page</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">API Documentation</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Legal</h4>
+                    <ul class="space-y-2">
+                        <li><a href="tel:+1-844-610-9851" class="text-gray-400 hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="tel:+1-844-610-9851" class="text-gray-400 hover:text-white transition">Terms of Service</a></li>
+                        <li><a href="tel:+1-844-610-9851" class="text-gray-400 hover:text-white transition">Security</a></li>
+                        <li><a href="tel:+1-844-610-9851" class="text-gray-400 hover:text-white transition">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="bg-gray-700 hover:bg-[#00C4FF] w-10 h-10 rounded-full flex items-center justify-center transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="bg-gray-700 hover:bg-[#00C4FF] w-10 h-10 rounded-full flex items-center justify-center transition">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="bg-gray-700 hover:bg-[#00C4FF] w-10 h-10 rounded-full flex items-center justify-center transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="bg-gray-700 hover:bg-[#00C4FF] w-10 h-10 rounded-full flex items-center justify-center transition">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-6 text-center text-gray-400">
+                <p>© 2023 Venmo Support Resource. Not affiliated with Venmo or PayPal.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const contentMap = {
+            default: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <i class="fas fa-clock mr-3"></i> Round-the-Clock Assistance
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Whether you're making a payment, managing your balance, or facing an unexpected issue, Venmo's support resources are available 24/7. We're committed to making your digital payment experience smooth, secure, and stress-free—anytime you need us.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="content-card bg-white p-6 rounded-xl shadow-sm">
+                        <div class="text-[#00C4FF] text-3xl mb-4">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Guided Help for New Users</h3>
+                        <p class="text-gray-600 mb-4">New to Venmo? No problem. Our Help Center is built for clarity—with step-by-step tutorials, how-to articles, and instant answers to get you started and confident in just a few clicks.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center bg-white text-[#0088CC] px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                    <div class="content-card bg-white p-6 rounded-xl shadow-sm">
+                        <div class="text-[#00C4FF] text-3xl mb-4">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Safe Payments Built In</h3>
+                        <p class="text-gray-600 mb-4">Your peace of mind is our priority. With every transfer or purchase, Venmo encrypts your data and keeps your financial information protected behind multiple layers of security.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center bg-white text-[#0088CC] px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                    <div class="content-card bg-white p-6 rounded-xl shadow-sm">
+                        <div class="text-[#00C4FF] text-3xl mb-4">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Resolve Payment Issues Quickly</h3>
+                        <p class="text-gray-600 mb-4">Disputed charges? Sent money by mistake? Venmo provides intuitive tools for canceling payments, reviewing transaction history, and filing disputes.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center bg-white text-[#0088CC] px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                    <div class="content-card bg-white p-6 rounded-xl shadow-sm">
+                        <div class="text-[#00C4FF] text-3xl mb-4">
+                            <i class="fas fa-shield-virus"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Real-Time Security Monitoring</h3>
+                        <p class="text-gray-600 mb-4">Your account is protected by intelligent fraud detection systems that work around the clock. From detecting unfamiliar logins to spotting suspicious transactions.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center bg-white text-[#0088CC] px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+                <div class="mt-8 bg-white rounded-xl shadow-sm overflow-hidden">
+                    <div class="bg-gray-50 px-6 py-4 border-b">
+                        <h3 class="font-bold text-lg text-gray-800">
+                            <i class="fas fa-exclamation-circle mr-2 text-orange-500"></i> Important Note
+                        </h3>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-4">This content is independently written for informational purposes to support users navigating Venmo-related services. We are not affiliated with Venmo or PayPal Inc., nor do we claim any official representation.</p>
+                        <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                            <li>Always access support directly through the official Venmo app or website.</li>
+                            <li>Never share sensitive account information with unauthorized third parties.</li>
+                            <li>Use trusted devices and enable security alerts to monitor account activity.</li>
+                            <li>This content aims to encourage safe usage and user education.</li>
+                            <li>Payment decisions should be made carefully and responsibly.</li>
+                            <li>Stay informed, stay secure, and always verify official sources for assistance.</li>
+                        </ul>
+                    </div>
+                </div>
+            `,
+            australia: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <span class="mr-3">🌏</span> Support for Australia
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Venmo is not officially available in Australia, but you can use it with a US bank account. Learn how to set up an account, link a card, and troubleshoot common issues.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            usa: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <spanุม
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Get help with payments, account management, and security in the USA. Explore FAQs, tutorials, and contact options for quick assistance.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            canada: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <span class="mr-3">🍁</span> Support for Canada
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Venmo is not available in Canada, but we can guide you on alternative payment apps or using Venmo with a US account.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            uk: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <span class="mr-3">🇬🇧</span> Support for UK
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Learn about using Venmo in the UK with a US bank account or explore UK-specific payment alternatives.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            india: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <span class="mr-3">🇮🇳</span> Support for India
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Venmo is not available in India, but we can help you understand how to use it with a US account or suggest local payment apps.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            brazil: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <span class="mr-3">🇧🇷</span> Support for Brazil
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Explore how to use Venmo with a US account in Brazil or discover local payment alternatives.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            japan: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <span class="mr-3">🇯🇵</span> Support for Japan
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Learn how to use Venmo in Japan with a US bank account or explore Japan-specific payment apps.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            germany: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <span class="mr-3">🇩🇪</span> Support for Germany
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Use Venmo in Germany with a US account or discover local payment solutions.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            france: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <span class="mr-3">🇫🇷</span> Support for France
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Learn how to use Venmo in France with a US account or explore local payment apps.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            mexico: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <span class="mr-3">🇲🇽</span> Support for Mexico
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Use Venmo in Mexico with a US account or discover local payment solutions.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            china: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <span class="mr-3">🇨🇳</span> Support for China
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Learn how to use Venmo in China with a US account or explore local payment apps like WeChat Pay.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            russia: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <span class="mr-3">🇷🇺</span> Support for Russia
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Use Venmo in Russia with a US account or discover local payment alternatives.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            south_africa: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <span class="mr-3">🇿🇦</span> Support for South Africa
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Learn how to use Venmo in South Africa with a US account or explore local payment solutions.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            italy: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <span class="mr-3">🇮🇹</span> Support for Italy
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Use Venmo in Italy with a US account or discover local payment apps.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            spain: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <span class="mr-3">🇪🇸</span> Support for Spain
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Learn how to use Venmo in Spain with a US account or explore local payment solutions.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            south_korea: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <span class="mr-3">🇰🇷</span> Support for South Korea
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Use Venmo in South Korea with a US account or discover local payment apps like KakaoPay.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            nigeria: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <span class="mr-3">🇳🇬</span> Support for Nigeria
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Learn how to use Venmo in Nigeria with a US account or explore local payment solutions.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            argentina: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <span class="mr-3">🇦🇷</span> Support for Argentina
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Use Venmo in Argentina with a US account or discover local payment apps.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            egypt: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <span class="mr-3">🇪🇬</span> Support for Egypt
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Learn how to use Venmo in Egypt with a US account or explore local payment solutions.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            singapore: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <span class="mr-3">🇸🇬</span> Support for Singapore
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Use Venmo in Singapore with a US account or discover local payment apps like PayNow.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            new_zealand: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <span class="mr-3">🇳🇿</span> Support for New Zealand
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Learn how to use Venmo in New Zealand with a US account or explore local payment solutions.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            sweden: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <span class="mr-3">🇸🇪</span> Support for Sweden
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Use Venmo in Sweden with a US account or discover local payment apps like Swish.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            netherlands: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <span class="mr-3">🇳🇱</span> Support for Netherlands
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Learn how to use Venmo in the Netherlands with a US account or explore local payment solutions.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            turkey: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <span class="mr-3">🇹🇷</span> Support for Turkey
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Use Venmo in Turkey with a US account or discover local payment apps.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            uae: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <span class="mr-3">🇦🇪</span> Support for UAE
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Learn how to use Venmo in the UAE with a US account or explore local payment solutions.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            payments: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <i class="fas fa-paper-plane mr-3"></i> Sending Payments
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Learn how to send and request payments, split bills, and troubleshoot payment issues with Venmo.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            security: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <i class="fas fa-shield-alt mr-3"></i> Account Security
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Protect your Venmo account with two-factor authentication, secure passwords, and real-time fraud monitoring.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            business: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <i class="fas fa-store mr-3"></i> Business Profiles
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Set up a Venmo business profile, accept payments, and manage transactions for your small business.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            troubleshooting: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <i class="fas fa-exclamation-triangle mr-3"></i> Troubleshooting
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Fix common issues like payment failures, app crashes, or login problems with our step-by-step guides.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            refunds: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <i class="fas fa-exchange-alt mr-3"></i> Refunds & Disputes
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Learn how to request refunds, cancel payments, and file disputes for unauthorized transactions.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            payment_methods: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <i class="fas fa-credit-card mr-3"></i> Payment Methods
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Learn how to add and manage payment methods like bank accounts, credit cards, and debit cards on Venmo.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            account_setup: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <i class="fas fa-user-plus mr-3"></i> Account Setup
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Get started with Venmo by setting up your account, verifying your identity, and linking a payment method.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            login_issues: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <i class="fas fa-lock mr-3"></i> Login Issues
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Troubleshoot login problems, reset your password, or recover your account with our guides.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            notifications: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <i class="fas fa-bell mr-3"></i> Notifications
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Manage your Venmo notifications for payments, security alerts, and account updates.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `,
+            settings: `
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+                    <div class="venmo-gradient text-white px-6 py-4">
+                        <h2 class="text-2xl font-bold flex items-center">
+                            <i class="fas fa-cog mr-3"></i> Settings
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Customize your Venmo account settings, including privacy, payment preferences, and notifications.</p>
+                        <a href="tel:+1-844-610-9851" class="contact-btn inline-flex items-center venmo-gradient text-white px-6 py-3 rounded-lg font-medium">
+                            <i class="fas fa-headset mr-2"></i> Call Venmo Support Now
+                        </a>
+                    </div>
+                </div>
+            `
+        };
+
+        const searchBar = document.getElementById('search-bar');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarItems = sidebar.querySelectorAll('.sidebar-item');
+        const mainContent = document.getElementById('main-content');
+
+        // Search functionality
+        searchBar.addEventListener('input', () => {
+            const query = searchBar.value.toLowerCase();
+            sidebarItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(query) ? 'block' : 'none';
+            });
+        });
+
+        // Sidebar item click handling
+        sidebarItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Remove active class from all items
+                sidebarItems.forEach(i => i.classList.remove('active'));
+                // Add active class to clicked item
+                item.classList.add('active');
+                // Update main content
+                const contentKey = item.getAttribute('data-content');
+                mainContent.innerHTML = contentMap[contentKey] || contentMap.default;
+                // Reset search bar and show all items
+                searchBar.value = '';
+                sidebarItems.forEach(i => i.style.display = 'block');
+            });
+        });
+
+        // Call button click handling (optional)
+        document.querySelector('.call-button').addEventListener('click', (e) => {
+            e.preventDefault();
+            alert('Contacting Venmo Support...');
+        });
+    </script>
+</body>
+</html>
