@@ -68,7 +68,7 @@
         
         .call-button {
             position: fixed;
-            bottom: 20px;
+            bottom: 90px; /* Adjusted to move the call button higher */
             right: 20px;
             width: 60px;
             height: 60px;
@@ -97,84 +97,6 @@
             max-width: 40px;
             margin-right: 12px;
         }
-
-        /* Live Chat Styles */
-        .chat-button {
-            position: fixed;
-            bottom: 90px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            z-index: 1000;
-            background: linear-gradient(135deg, #00C4FF 0%, #0088CC 100%);
-            transition: all 0.3s ease;
-        }
-        
-        .chat-button:hover {
-            transform: scale(1.1);
-        }
-        
-        .chat-window {
-            position: fixed;
-            bottom: 160px;
-            right: 20px;
-            width: 320px;
-            background: white;
-            border-radius: 1rem;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            display: none;
-            flex-direction: column;
-            z-index: 1000;
-        }
-        
-        .chat-header {
-            background: linear-gradient(135deg, #00C4FF 0%, #0088CC 100%);
-            color: white;
-            padding: 1rem;
-            border-top-left-radius: 1rem;
-            border-top-right-radius: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .chat-body {
-            padding: 1rem;
-            max-height: 300px;
-            overflow-y: auto;
-            flex-grow: 1;
-        }
-        
-        .chat-footer {
-            padding: 1rem;
-            border-top: 1px solid #e5e7eb;
-        }
-        
-        .chat-message {
-            margin-bottom: 1rem;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            background: #f1f5f9;
-        }
-        
-        .chat-input {
-            width: 100%;
-            padding: 0.5rem;
-            border: 1px solid #e5e7eb;
-            border-radius: 0.5rem;
-            outline: none;
-        }
-        
-        .chat-input:focus {
-            border-color: #00C4FF;
-            box-shadow: 0 0 0 2px rgba(0, 196, 255, 0.2);
-        }
     </style>
 </head>
 <body>
@@ -189,7 +111,7 @@
                     <p class="text-lg mt-1 opacity-90">24/7 assistance for all your payment needs</p>
                 </div>
                 <div class="hidden md:block">
-                    <button onclick="toggleChat()" class="bg-white text-[#0088CC] px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition contact-btn">
+                    <button onclick="Tawk_API.toggle()" class="bg-white text-[#0088CC] px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition contact-btn">
                         <i class="fas fa-comments mr-2"></i> Live Chat
                     </button>
                 </div>
@@ -295,7 +217,7 @@
                     </div>
                     <div class="p-6">
                         <div class="space-y-4">
-                            <button onclick="toggleChat()" class="flex items-center px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition w-full">
+                            <button onclick="Tawk_API.toggle()" class="flex items-center px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition w-full">
                                 <div class="bg-[#00C4FF] text-white p-2 rounded-full mr-3">
                                     <i class="fas fa-comments"></i>
                                 </div>
@@ -304,7 +226,7 @@
                                     <p class="text-sm text-gray-500">Available 24/7</p>
                                 </div>
                             </button>
-                            <a href="#" class="flex items8px items-center px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition">
+                            <a href="#" class="flex items-center px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition">
                                 <div class="bg-[#00C4FF] text-white p-2 rounded-full mr-3">
                                     <i class="fas fa-envelope"></i>
                                 </div>
@@ -337,7 +259,7 @@
                     </div>
                     <div class="p-6">
                         <p class="text-gray-700 mb-6">Whether you're making a payment, managing your balance, or facing an unexpected issue, Venmo's support resources are available 24/7. We're committed to making your digital payment experience smooth, secure, and stress-free—anytime you need us. For immediate help, you can call Venmo support or use live chat Venmo support.</p>
-                        <button onclick="toggleChat()" class="bg-white text-[#0088CC] px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition contact-btn">
+                        <button onclick="Tawk_API.toggle()" class="bg-white text-[#0088CC] px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition contact-btn">
                             <i class="fas fa-comments mr-2"></i> Live Chat Venmo Support
                         </button>
                     </div>
@@ -361,7 +283,7 @@
                         </div>
                         <h3 class="text-xl font-bold mb-3">Safe Payments Built In</h3>
                         <p class="text-gray-600 mb-4">Your peace of mind is our priority. With every transfer or purchase, Venmo encrypts your data and keeps your financial information protected behind multiple layers of security. Contact us via call Venmo support or live chat Venmo support for security concerns.</p>
-                        <button onclick="toggleChat()" class="bg-white text-[#0088CC] px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition contact-btn">
+                        <button onclick="Tawk_API.toggle()" class="bg-white text-[#0088CC] px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition contact-btn">
                             <i class="fas fa-comments mr-2"></i> Live Chat Venmo Support
                         </button>
                     </div>
@@ -410,28 +332,6 @@
     <a href="tel:+1-844-513-3344" class="call-button venmo-gradient">
         <i class="fas fa-phone"></i>
     </a>
-
-    <!-- Live Chat Button -->
-    <button onclick="toggleChat()" class="chat-button">
-        <i class="fas fa-comments"></i>
-    </button>
-
-    <!-- Live Chat Window -->
-    <div class="chat-window" id="chat-window">
-        <div class="chat-header">
-            <h3 class="font-bold">Live Chat Venmo Support</h3>
-            <button onclick="toggleChat()" class="text-white">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="chat-body" id="chat-body">
-            <div class="chat-message">Welcome to Venmo Support! How can we assist you today?</div>
-        </div>
-        <div class="chat-footer">
-            <input type="text" id="chat-input" class="chat-input" placeholder="Type your message...">
-            <button onclick="sendChatMessage()" class="mt-2 w-full bg-[#00C4FF] text-white py-2 rounded-md hover:bg-[#0088CC] transition">Send</button>
-        </div>
-    </div>
 
     <footer class="bg-gray-900 text-white py-8 mt-12">
         <div class="container mx-auto px-4">
@@ -489,7 +389,7 @@
         const states = [
             { name: 'Alabama', region: 'South' },
             { name: 'Alaska', region: 'West' },
-            { name: 'Arizona', region: 'West' },
+            { name: 'Arizona', region: 'irketWest' },
             { name: 'Arkansas', region: 'South' },
             { name: 'California', region: 'West' },
             { name: 'Colorado', region: 'West' },
@@ -556,7 +456,7 @@
                     </div>
                     <div class="p-6">
                         <p class="text-gray-700 mb-6">Access dedicated support for Venmo users in ${capitalizedState}. From instant payments to account security, our resources are here to ensure a seamless experience tailored to your needs, 24/7. For assistance, call Venmo support or use live chat Venmo support.</p>
-                        <button onclick="toggleChat()" class="bg-white text-[#0088CC] px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition contact-btn">
+                        <button onclick="Tawk_API.toggle()" class="bg-white text-[#0088CC] px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition contact-btn">
                             <i class="fas fa-comments mr-2"></i> Live Chat Venmo Support
                         </button>
                     </div>
@@ -578,7 +478,7 @@
                         </div>
                         <h3 class="text-xl font-bold mb-3">Local Support in ${capitalizedState}</h3>
                         <p class="text-gray-600 mb-4">Get personalized help from our US-based support team for account setup, payment issues, or troubleshooting in ${capitalizedState}. Reach out via call Venmo support or live chat Venmo support.</p>
-                        <button onclick="toggleChat()" class="bg-white text-[#0088CC] px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition contact-btn">
+                        <button onclick="Tawk_API.toggle()" class="bg-white text-[#0088CC] px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition contact-btn">
                             <i class="fas fa-comments mr-2"></i> Live Chat Venmo Support
                         </button>
                     </div>
@@ -619,7 +519,7 @@
                     </div>
                     <div class="p-6">
                         <p class="text-gray-700 mb-6">Whether you're making a payment, managing your balance, or facing an unexpected issue, Venmo's support resources are available 24/7. We're committed to making your digital payment experience smooth, secure, and stress-free—anytime you need us. For immediate help, you can call Venmo support or use live chat Venmo support.</p>
-                        <button onclick="toggleChat()" class="bg-white text-[#0088CC] px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition contact-btn">
+                        <button onclick="Tawk_API.toggle()" class="bg-white text-[#0088CC] px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition contact-btn">
                             <i class="fas fa-comments mr-2"></i> Live Chat Venmo Support
                         </button>
                     </div>
@@ -641,7 +541,7 @@
                         </div>
                         <h3 class="text-xl font-bold mb-3">Safe Payments Built In</h3>
                         <p class="text-gray-600 mb-4">Your peace of mind is our priority. With every transfer or purchase, Venmo encrypts your data and keeps your financial information protected behind multiple layers of security. Contact us via call Venmo support or live chat Venmo support for security concerns.</p>
-                        <button onclick="toggleChat()" class="bg-white text-[#0088CC] px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition contact-btn">
+                        <button onclick="Tawk_API.toggle()" class="bg-white text-[#0088CC] px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition contact-btn">
                             <i class="fas fa-comments mr-2"></i> Live Chat Venmo Support
                         </button>
                     </div>
@@ -661,7 +561,7 @@
                         </div>
                         <h3 class="text-xl font-bold mb-3">Real-Time Security Monitoring</h3>
                         <p class="text-gray-600 mb-4">Your account is protected by intelligent fraud detection systems that work around the clock. From detecting unfamiliar logins to spotting suspicious transactions. For support, use call Venmo support or live chat Venmo support.</p>
-                        <button onclick="toggleChat()" class="bg-white text-[#0088CC] px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition contact-btn">
+                        <button onclick="Tawk_API.toggle()" class="bg-white text-[#0088CC] px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition contact-btn">
                             <i class="fas fa-comments mr-2"></i> Live Chat Venmo Support
                         </button>
                     </div>
@@ -702,7 +602,7 @@
                         </div>
                         <h3 class="text-xl font-bold mb-3">Instant Transfers in the USA</h3>
                         <p class="text-gray-600 mb-4">Send money instantly to friends or transfer to your US bank account with Venmo’s fast and reliable payment tools. Contact call Venmo support or live chat Venmo support for help.</p>
-                        <button onclick="toggleChat()" class="bg-white text-[#0088CC] px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition contact-btn">
+                        <button onclick="Tawk_API.toggle()" class="bg-white text-[#0088CC] px-6 py-2 rounded-full font-medium hover:bg-gray-100 transition contact-btn">
                             <i class="fas fa-comments mr-2"></i> Live Chat Venmo Support
                         </button>
                     </div>
@@ -758,7 +658,7 @@
             `,
             security: `
                 <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
-                    <div class="venmo-gradient text-white px-6 py::::4">
+                    <div class="venmo-gradient text-white px-6 py-4">
                         <h2 class="text-2xl font-bold flex items-center">
                             <i class="fas fa-shield-alt mr-3"></i> Account Security
                         </h2>
@@ -962,47 +862,20 @@
                 updateContent(state);
             });
         });
-
-        function toggleChat() {
-            const chatWindow = document.getElementById('chat-window');
-            chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex';
-        }
-
-        function sendChatMessage() {
-            const chatInput = document.getElementById('chat-input');
-            const chatBody = document.getElementById('chat-body');
-            const message = chatInput.value.trim();
-
-            if (message) {
-                const userMessage = document.createElement('div');
-                userMessage.className = 'chat-message';
-                userMessage.textContent = message;
-                chatBody.appendChild(userMessage);
-
-                const mailtoLink = `mailto:support@example.com?subject=Live Chat Message&body=Message: ${encodeURIComponent(message)}`;
-                window.location.href = mailtoLink;
-
-                chatInput.value = '';
-                chatBody.scrollTop = chatBody.scrollHeight;
-
-                setTimeout(() => {
-                    const botMessage = document.createElement('div');
-                    botMessage.className = 'chat-message';
-                    botMessage.style.background = '#e0f7ff';
-                    botMessage.textContent = 'Thank you for your message! Our support team will respond shortly.';
-                    chatBody.appendChild(botMessage);
-                    chatBody.scrollTop = chatBody.scrollHeight;
-                }, 1000);
-            } else {
-                alert('Please enter a message.');
-            }
-        }
-
-        document.getElementById('chat-input').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                sendChatMessage();
-            }
-        });
     </script>
+    
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+        (function(){
+        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+        s1.async=true;
+        s1.src='https://embed.tawk.to/681ce64042fe20190ebfbddc/1iqoe6r8v';
+        s1.charset='UTF-8';
+        s1.setAttribute('crossorigin','*');
+        s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
 </body>
 </html>
